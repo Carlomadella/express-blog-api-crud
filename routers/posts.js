@@ -2,6 +2,8 @@ const express = require('express');
 
 const posts = express.Router();
 
+const menu = require('../controllers/postsList.js');
+
 // rotta principale (index)
 posts.get('/', (req, res) => {
     res.send("Lista dei post");
