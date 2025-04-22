@@ -9,6 +9,26 @@ posts.get('/', (req, res) =>{
     res.json(postsList);
 });
 
+// Read: Visualizzo un elemento con id specifico (Show)
+posts.get('/:id', (req, res) =>{
+    // recupero l'id dall' URL 
+    const id = parseInt(req.params.id) //parseInt() serve per trasformare l'id in numero
+    // cerco il mio post tramite id
+    const myPost = posts.find(myPost => myPost.id === id);
+    // creo l'if per fare il controllo
+    if(!myPost){
+        //Imposto lo status 404 se il post cercato non viene trovato
+        res.status(404)
+        // Restituisco un JSON con un messaggio di errore
+        return res.json({
+            error: "Not Found",
+            message: "il post cercato non è presente"
+        });
+    }
+    // Restituiamolo sotto forma di JSON
+    res.json(myPost);
+});
+
 // Create: Creare un nuovo elemento (store)
 posts.post("/", (req , res) =>{
     res.send("Creo un nuovo post");
