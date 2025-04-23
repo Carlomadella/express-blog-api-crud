@@ -24,4 +24,4 @@ router.patch("/:id", postController.modify);
 router.delete("/id", postController.destroy);
 
 // Esporto il router 
-module.exports = posts;
+module.exports = router;

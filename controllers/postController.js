@@ -1,16 +1,28 @@
-const postsList = require('../data/posts.js');
+const postsList = require('../data/postsList.js');
 
 
 // creiamo i metodi per le rotte
 
 // index
 const index = (req, res) => {
-    res.send("Tutti i post");
+    res.json(postsList);
 }
 
 // show
 const show = (req, res) => {
-    res.send(`Post con id ${req.params.id}`);
+    // recupero l'id del post da visualizzare
+    const id = parseInt(req.params.id);
+
+    // cerco il post con l'id specificato
+    const post = postsList.find((post) => {
+        return post.id == id;
+    });
+
+    // forma contratta per la ricerca del post
+    // const post = postsList.find(post => post.id === id);
+    // res.send(`Post con id ${req.params.id}`);
+
+    res.json(post);
 }
 
 // store
@@ -30,8 +42,29 @@ const modify = (req, res) => {
 
 // destroy
 const destroy = (req,res) => {
-    res.send(`Cancellazione del post con id ${req.params.id}`)
+    // recupero il valore passato cpme parametro
+    const id = parseInt(req.params.id);
+
+    const post = postsList.find((post) => {
+        return post.id == id;
+    });
+
+    if (!post){
+        res.status(404);
+
+        res.json({
+            error: "Not Found",
+            messagge: "Pizza non trovata"
+        })
+    }
+
+    // rimuovo il post dalla lista
+    postsList.splice(postsList.indexOf(post), 1);
+
+    res.sendStatus(204);
+
+    console.log(postsList);
 }
 
 // esportiamo i metodi creati tramite la destrutturazione
-module.exports = { index, show, store, update, modify, destroy };
+module.exports = {index, show, store, update, modify, destroy};
