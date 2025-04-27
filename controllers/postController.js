@@ -27,7 +27,25 @@ const show = (req, res) => {
 
 // store
 const store = (req, res) => {
-    res.send("Inserimento di un nuovo post");
+    const newId = postsList[postsList.length - 1].id + 1;
+    // Creiamo un nuovo Post in forma oggetto 
+    const newPost = {
+        id: newId,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+    }
+
+    // Aggiungiamo il nuovo post all'array esistente
+    postsList.push(newPost);
+    
+    // controlliamo la lista dei post
+    console.log(postsList);
+
+    // Restituiamo lo status corretto e l'oggetto appena creato
+    res.status(201);
+    res.json(newPost);
 }
 
 // update
