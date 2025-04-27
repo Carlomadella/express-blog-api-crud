@@ -50,7 +50,36 @@ const store = (req, res) => {
 
 // update
 const update = (req, res) => {
-    res.send(`Modifica totale del post con id ${req.params.id}`);
+
+    const id= parseInt(req.params.id);
+    
+    // cerco il post con l'id specificato
+    const updPost = postsList.find((post) => {
+        return post.id == id;
+    });
+
+    // restituisco una risposta al client se non trovo il post
+    if (!updPost){
+        res.status(404);
+
+        res.json({
+            error: "Not Found",
+            messagge: "Pizza non trovata"
+        })
+    }
+
+    // modifico il post
+    updPost.title = req.body.title;
+    updPost.content = req.body.content;
+    updPost.image = req.body.image;
+    updPost.tags = req.body.tags;
+
+    // stampo per vedere il risultato
+    console.log(menu);
+    
+    // restituisco il post modificato
+    res.json(updPost);
+
 }
 
 // modify
