@@ -1,3 +1,4 @@
+const posts = require('../data/postsList.js');
 const postsList = require('../data/postsList.js');
 
 
@@ -75,7 +76,7 @@ const update = (req, res) => {
     updPost.tags = req.body.tags;
 
     // stampo per vedere il risultato
-    console.log(menu);
+    console.log(postsList);
     
     // restituisco il post modificato
     res.json(updPost);
