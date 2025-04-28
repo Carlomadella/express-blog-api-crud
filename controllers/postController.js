@@ -63,7 +63,7 @@ const update = (req, res) => {
     if (!updPost){
         res.status(404);
 
-        res.json({
+        return res.json({
             error: "Not Found",
             messagge: "Pizza non trovata"
         })
